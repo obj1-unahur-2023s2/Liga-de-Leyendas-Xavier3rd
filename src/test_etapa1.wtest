@@ -1,0 +1,49 @@
+import campeones.*
+import items.*
+import oleadas.*
+
+describe "Test de etapa 1"{
+	const camp1 = new Campeon(puntosDeVida= 20, puntosDeAtaque=10)
+	const oleada1 = new Oleada(cantidadDeMinions=35, plusDeDanio= 5)
+	const doran1 = new AnilloDeDoran(peso=200)
+	const tomo1 = new TomoAmplificador(peso=1000)
+	const som1 = new SombreroDeRabadon(peso=200)
+	
+	method initialize() {
+		camp1.equiparItem(doran1)
+		camp1.equiparItem(tomo1)
+	}
+	
+	test "El campeon tiene 0 puntos de daño" {
+		assert.equals(0, camp1.puntosDeDanio())
+	}
+	
+	test "El campeón tiene 140 puntos de vida" {
+		assert.equals(140, camp1.puntosDeVidaTotal())
+	}
+	
+	test "El campeón tiene 40 puntos de ataque" {
+		assert.equals(40, camp1.puntosDeAtaqueTotal())
+	}
+	
+	test "El campeon recibe 40 puntos de danio por la oleada de 35 minions con 5 puntos de ataque extra" {
+		camp1.recibirAtaque(oleada1)
+		assert.equals(40, camp1.puntosDeDanio())
+	}
+	
+	test "El campeon tiene 150 puntos de vida por la oleada" {
+		camp1.recibirAtaque(oleada1)
+		assert.equals(150, camp1.puntosDeVidaTotal())
+	}
+	
+	test "El campeon tiene 44 puntos de ataque por la oleada" {
+		camp1.recibirAtaque(oleada1)
+		assert.equals(44, camp1.puntosDeAtaqueTotal())
+	}
+	
+	test "El campeon se equipa con un sombre y sus puntos de vida pasan a 190" {
+		camp1.equiparItem(som1)
+		assert.equals(190, camp1.puntosDeVidaTotal())
+	}
+	
+}

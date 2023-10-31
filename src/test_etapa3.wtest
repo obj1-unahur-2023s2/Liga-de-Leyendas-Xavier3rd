@@ -1,0 +1,40 @@
+import campeones.*
+import items.*
+import oleadas.*
+
+describe "Test de etapa 3: Batalla entre campeon y oleada"{
+	const camp1 = new Campeon(puntosDeVida= 20, puntosDeAtaque=10)
+	const camp2 = new Campeon(puntosDeVida= 40, puntosDeAtaque=20)
+	const oleada1 = new Oleada(cantidadDeMinions=35, plusDeDanio= 5)
+	const oleada2 = new Oleada(cantidadDeMinions=200, plusDeDanio= 30)
+	const doran1 = new AnilloDeDoran(peso=200)
+	const tomo1 = new TomoAmplificador(peso=1000)
+	
+	
+	method initialize() {
+		camp1.equiparItem(doran1)
+		camp1.equiparItem(tomo1)
+		camp2.equiparItem(doran1)
+		camp2.equiparItem(tomo1)
+	}
+	
+	test "El plus de daño de la oleada1 pasa a 4 puntos luego de la batalla con camp1" {
+		camp1.recibirAtaque(oleada1)
+		assert.equals(4, oleada1.plusDeDanio())
+	}
+	
+	test "La cantidad de minions de la oleada1 pasa 15 luego de la batalla con camp1" {
+		camp1.recibirAtaque(oleada1)
+		assert.equals(15, oleada1.cantidadDeMinions())
+	}
+	
+	test "El plus de daño de la oleada2 pasa a 28 puntos luego de la batalla con camp2" {
+		camp2.recibirAtaque(oleada2)
+		assert.equals(28, oleada2.plusDeDanio())
+	}
+	
+	test "La cantidad de minions de la oleada2 pasa 175 luego de la batalla con camp2" {
+		camp2.recibirAtaque(oleada2)
+		assert.equals(175, oleada2.cantidadDeMinions())
+	}
+}

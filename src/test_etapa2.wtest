@@ -1,0 +1,39 @@
+import campeones.*
+import items.*
+import oleadas.*
+
+describe "Test de etapa 1"{
+	const camp1 = new Campeon(puntosDeVida= 20, puntosDeAtaque=10)
+	const oleada1 = new Oleada(cantidadDeMinions=35, plusDeDanio= 5)
+	const oleada2 = new Oleada(cantidadDeMinions=200, plusDeDanio= 30)
+	const doran1 = new AnilloDeDoran(peso=200)
+	const tomo1 = new TomoAmplificador(peso=1000)
+	
+	
+	method initialize() {
+		camp1.equiparItem(doran1)
+		camp1.equiparItem(tomo1)
+		
+	}
+	
+	test "El campeon recibe 40 puntos de daño por la oleada1" {
+		camp1.recibirAtaque(oleada1)
+		assert.equals(40, camp1.puntosDeDanio())
+	}
+	
+	test "El campeón sigue vivo luego de la oleada"{
+		camp1.recibirAtaque(oleada1)
+		assert.notThat(camp1.estaMuerto())
+	}
+	
+	test "El campeon recibe 230 puntos de daño por la oleada2" {
+		camp1.recibirAtaque(oleada2)
+		assert.equals(230, camp1.puntosDeDanio())
+	}
+	
+	test "El campeon muere tras el daño que recibe de la oleada2" {
+		camp1.recibirAtaque(oleada2)
+		assert.that(camp1.estaMuerto())
+	}
+		
+}
